@@ -1,1 +1,5 @@
-# nwhack-2023
+# Auto Fact check aka Verif.AI
+
+## Features
+
+## Implementation
