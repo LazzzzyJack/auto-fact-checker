@@ -1,5 +1,10 @@
 # Auto Fact check aka Verif.AI
 
-## Features
+## Setup
+`npm install`
 
-## Implementation
+## Run server
+`npm serve`
+
+## Run client
+`npm run dev`
