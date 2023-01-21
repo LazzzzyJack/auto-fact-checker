@@ -3,32 +3,23 @@
 
 <head>
   <meta charset="UTF-8" />
-  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-  <link rel="stylesheet" href="styling.css">
+  <link rel="stylesheet" href="style.css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Vite App</title>
+  <title>Auto Fact Checker</title>
 </head>
 
 <body>
+  <main class="container">
 
-  <div class="container">
+    <h1 class="kavyansh">Auto Fact Checker</h1>
+    <form>
+      <label for="prompt">Prompt</label>
+      <textarea name="prompt" maxlength="500"></textarea>
 
-    <p class="kavyansh">Auto fact checker:<br>Kavyansh Bansal</p>
-    <div class="row">
-      <div class="col-lg-9">
-        <canvas class="main-canvas" id="canvas"></canvas>
-        <ul id="options"></ul>
-      </div>
-      <div class="col">
-        <h2>Regulations</h2><br>
-        <p>To be edited</p>
-        <p> ............</p>
-        <p>...... </p>
-      </div>
+      <button type="submit">Fact Check 🤔</button>
+    </form>
 
-    </div>
-  </div>
-
+    </main>
 </body>
 
 </html>
