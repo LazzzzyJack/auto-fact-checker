@@ -1,0 +1,50 @@
+body {
+    background-color: yellow;
+}
+
+.kavyansh {
+    text-align: center;
+    margin-right: 9rem;
+    font-size: 2rem;
+    font-style: italic;
+    background-color: green;
+}
+
+.main-canvas {
+
+    background-color: pink;
+    border: 2px solid green;
+    display: block;
+    width: 1300px;
+}
+
+.row {
+    margin-top: 4rem;
+
+}
+
+#options {
+
+    list-style-type: none;
+}
+
+li {
+    padding: 10px;
+    text-align: center;
+}
+
+button {
+    padding: 6px 20px;
+    font-size: 30px;
+    font-weight: bold;
+    text-align: center;
+    cursor: pointer;
+    color: #000000;
+    background-color: #2ff5ff40;
+    border: none;
+    border-radius: 24%;
+}
+
+button:hover {
+    background-color: green;
+}
