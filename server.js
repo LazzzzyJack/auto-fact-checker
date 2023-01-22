@@ -34,7 +34,7 @@ app.post("/factchecktext", async (req, res) => {
   textAnalysisApi(data, prompt);
 });
 
-app.post("/factchecktext", async (req, res) => {
+app.post("/factcheckurl", async (req, res) => {
   const prompt = req.body.prompt;
   tweeterScrapingApi(data, prompt);
 });
