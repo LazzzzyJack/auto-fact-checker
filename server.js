@@ -29,38 +29,39 @@ const data = {
 
 const textAnalysis = async () => {
   try {
-    // var res = await fetch(
-    //   "https://api.openai.com/v1/engines/text-davinci-003/completions",
-    //   {
-    //     method: "POST",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //       Authorization: `Bearer ${configuration.apiKey}`,
-    //     },
-    //     body: JSON.stringify(data),
-    //   }
-    // );
-    let response = json({
-      someText: ["test", "hello", "world!"],
-    });
-    // var response = await res.json();
-    console.log(response);
-    return response;
+    var res = await fetch(
+      "https://api.openai.com/v1/engines/text-davinci-003/completions",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${configuration.apiKey}`,
+        },
+        body: JSON.stringify(data),
+      }
+    );
+
+    var json = await res.json();
+    return json;
   } catch (error) {
     console.log("openAI:", error);
   }
 };
 
-app.post('/factcheck', async (req, res) => {
-    try {
-        const prompt = req.body.prompt
-        const ans = "some respond"
-
-        res.send({ ans });
-    } catch (error) {
-        console.error(error);
-        res.status(500).send('Something went wrong');
-    }
+app.post("/factcheck", async (req, res) => {
+  try {
+    const prompt = req.body.prompt;
+    textAnalysis().then((res) => {
+      console.log(res);
+    });
+    const ans = "some respond";
+    res.send({ ans });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Something went wrong");
+  }
 });
 
-app.listen(port, () => { console.log(`Avalible on http://localhost:${port}`) });
+app.listen(port, () => {
+  console.log(`Avalible on http://localhost:${port}`);
+});
