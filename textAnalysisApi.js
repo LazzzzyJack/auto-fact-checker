@@ -56,6 +56,7 @@ export const textAnalysisApi = async (data, prompt, res) => {
 
     var formattedResponse = data.prompt;
     filteredFacts.forEach((element, i) => {
+      console.log(formattedResponse.includes(element));
       formattedResponse = formattedResponse.replace(
         element,
         `<span class="fact-${truths[i]}">` +
@@ -73,7 +74,7 @@ export const textAnalysisApi = async (data, prompt, res) => {
 
     console.log("FORMATTED RESPONSE");
     console.log(formattedResponse);
-    return "hello";
+    return formattedResponse;
   } catch (error) {
     console.error(error);
     res.status(500).send("Something went wrong");

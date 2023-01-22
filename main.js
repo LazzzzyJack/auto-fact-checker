@@ -41,7 +41,8 @@ const getFactCheck = async (e) => {
   });
 
   if (response.ok) {
-    const { ans } = await response.json();
+    const ans = await response.json();
+    console.log(ans);
     const fakeAnswer = `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. <span class="fact-true">Joe Biden won the 2020 election</span> Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. <span class="fact-false">Donald Trump won the 2020 election<span class="fact-tip">Joe Biden won the 2020 election.</span></span> Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.`;
     articleContainer.innerHTML = fakeAnswer;
 
