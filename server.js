@@ -29,19 +29,24 @@ const data = {
 
 const textAnalysis = async () => {
   try {
-    var res = await fetch(
-      "https://api.openai.com/v1/engines/text-davinci-003/completions",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${configuration.apiKey}`,
-        },
-        body: JSON.stringify(data),
-      }
-    );
+    // var res = await fetch(
+    //   "https://api.openai.com/v1/engines/text-davinci-003/completions",
+    //   {
+    //     method: "POST",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //       Authorization: `Bearer ${configuration.apiKey}`,
+    //     },
+    //     body: JSON.stringify(data),
+    //   }
+    // );
 
-    var json = await res.json();
+    // var json = await res.json();
+    var json = { title: "test test test" };
+    // let data2 = unfluff(
+    //   "https://www.polygon.com/2014/6/26/5842180/shovel-knight-review-pc-3ds-wii-u"
+    // );
+    console.log(data2);
     return json;
   } catch (error) {
     console.log("openAI:", error);
@@ -52,7 +57,7 @@ app.post("/factcheck", async (req, res) => {
   try {
     const prompt = req.body.prompt;
     textAnalysis().then((res) => {
-      console.log(res);
+      // console.log(res);
     });
     const ans = "some respond";
     res.send({ ans });
