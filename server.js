@@ -29,7 +29,6 @@ app.post("/factchecktext", async (req, res) => {
     presence_penalty: 0.0,
   };
   let formattedResponse = await textAnalysisApi(data, prompt, res);
-  console.log(`Fianl: ${formattedResponse}`);
   res.status(200).json({ textFormat: formattedResponse });
 });
 
@@ -43,12 +42,6 @@ app.post("/factcheckurl", async (req, res) => {
   };
   const url = req.body.prompt;
   var prompt = await tweeterScrapingApi(data, url, res);
-  console.log(
-    "===" +
-      prompt +
-      " Identify the facts and seperate them with newlines." +
-      "==="
-  );
   prompt = prompt + " Identify the facts and seperate them with newlines.";
   const data1 = {
     prompt: prompt,
@@ -60,10 +53,7 @@ app.post("/factcheckurl", async (req, res) => {
   let response = await textAnalysisAi(data1, data1.prompt);
   var responseText = response.choices[0].text;
   let factList = responseText.split("\n");
-  console.log(factList);
   const filteredFacts = factList.filter((fact) => fact !== "" && fact !== " ");
-  console.log("FACT LIST");
-  console.log(filteredFacts);
 
   // get more info of each fact
   const infos = [];
@@ -82,9 +72,6 @@ app.post("/factcheckurl", async (req, res) => {
     infos.push(info);
   }
 
-  console.log("More Info2");
-  console.log(infos);
-
   var formattedResponse = "";
   filteredFacts.forEach((element, i) => {
     formattedResponse =
@@ -97,8 +84,6 @@ app.post("/factcheckurl", async (req, res) => {
       "</span>";
   });
 
-  console.log("FORMATTED RESPONSE");
-  console.log(formattedResponse);
   res.status(200).json({ textFormat: formattedResponse });
 });
 

@@ -6,12 +6,8 @@ export const textAnalysisApi = async (data, prompt, res) => {
     var responseText = response.choices[0].text;
 
     let factList = responseText.split("\n");
-    console.log(factList);
 
     const filteredFacts = factList.filter((fact) => fact !== "");
-
-    console.log("FACT LIST");
-    console.log(filteredFacts);
 
     // check if the Fact is true or false
     const truths = [];
@@ -31,9 +27,6 @@ export const textAnalysisApi = async (data, prompt, res) => {
       truths.push(truth);
     }
 
-    console.log("Context to truth Map");
-    console.log(truths);
-
     // get more info of each fact
     const infos = [];
     for (let i = 0; i < filteredFacts.length; i++) {
@@ -50,9 +43,6 @@ export const textAnalysisApi = async (data, prompt, res) => {
       let info = responseText3.replace(/(\r\n|\n|\r)/gm, ""); // remove \n
       infos.push(info);
     }
-
-    console.log("More Info");
-    console.log(infos);
 
     var formattedResponse = data.prompt;
     filteredFacts.forEach((element, i) => {
@@ -72,8 +62,6 @@ export const textAnalysisApi = async (data, prompt, res) => {
       ""
     );
 
-    console.log("FORMATTED RESPONSE");
-    console.log(formattedResponse);
     return formattedResponse;
   } catch (error) {
     console.error(error);

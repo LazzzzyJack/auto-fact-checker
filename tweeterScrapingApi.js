@@ -17,7 +17,6 @@ export const tweeterScrapingApi = async (data, prompt, res) => {
       (tweet) => tweet.textContent
     );
 
-    console.log(result);
     browser.close();
     return result;
   } catch (error) {
