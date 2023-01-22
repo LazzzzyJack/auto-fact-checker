@@ -57,13 +57,13 @@ const getFactCheck = async (e) => {
 };
 
 function showSpinner() {
-  const button = document.querySelector(".submit-button");
+  const button = isUrl ? document.querySelector("#url-submit") : document.querySelector("#text-submit");
   button.disabled = true;
   button.innerHTML = 'Analyzing <span class="spinner">🧐</span>';
 }
 
 function hideSpinner() {
-  const button = document.querySelector(".submit-button");
+  const button = isUrl ? document.querySelector("#url-submit") : document.querySelector("#text-submit");
   button.disabled = false;
   button.innerHTML = "Fact Check 🤔";
 }
