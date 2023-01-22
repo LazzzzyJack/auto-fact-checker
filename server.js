@@ -29,66 +29,9 @@ const data = {
   presence_penalty: 0.0,
 };
 
-<<<<<<< HEAD
 app.post("/factchecktext", async (req, res) => {
   const prompt = req.body.prompt;
   textAnalysisApi(data, prompt);
-=======
-const textAnalysis = async () => {
-  try {
-    var res = await fetch(
-      "https://api.openai.com/v1/engines/text-davinci-003/completions",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${configuration.apiKey}`,
-        },
-        body: JSON.stringify(data),
-      }
-    );
-    var response = await res.json();
-    return response;
-  } catch (error) {
-    console.log("openAI:", error);
-  }
-};
-
-app.post("/factchecktext", async (req, res) => {
-  try {
-    const prompt = req.body.prompt;
-    var response;
-    textAnalysis().then((res) => {
-      response = res;
-      var responseText = response.choices[0].text;
-
-      let factList = responseText.split("\n");
-      console.log(factList);
-
-      const filteredFacts = factList.filter(isFact);
-      console.log("FACT LIST");
-      console.log(filteredFacts);
-
-      var formattedResponse = data.prompt;
-      filteredFacts.forEach((element) => {
-        formattedResponse = formattedResponse.replace(
-          element,
-          '<span style="color:red">' + element + "</span>"
-        );
-      });
-      formattedResponse = formattedResponse.replace(
-        " Identify the facts and seperate them with newlines.",
-        ""
-      );
-
-      console.log("FORMATTED RESPONSE");
-      console.log(formattedResponse);
-    });
-  } catch (error) {
-    console.error(error);
-    res.status(500).send("Something went wrong");
-  }
->>>>>>> main
 });
 
 app.post("/factchecktext", async (req, res) => {

@@ -58,24 +58,12 @@ function hideSpinner() {
   button.innerHTML = "Fact Check 🤔";
 }
 
-<<<<<<< HEAD
-const pasteUrlButton = document.querySelector(".paste-button");
-const urlTextarea = document.querySelector(".url-textarea");
-
-=======
->>>>>>> main
 pasteUrlButton.addEventListener("click", async () => {
   urlTextarea.focus();
   const data = await navigator.clipboard.readText();
   urlTextarea.value = data;
 });
 
-<<<<<<< HEAD
-const pasteTextButton = document.querySelector(".paste-article-button");
-const textTextarea = document.querySelector(".text-textarea");
-
-=======
->>>>>>> main
 pasteTextButton.addEventListener("click", async () => {
   textTextarea.focus();
   const data = await navigator.clipboard.readText();
