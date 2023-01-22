@@ -65,7 +65,7 @@ h1 {
   width: 100%;
   height: 30px;
   margin: 10px 0;
-  font-size: 1.0rem;
+  font-size: 1.2rem;
 }
 
 .paste-button {
@@ -94,7 +94,7 @@ h1 {
   width: 100%;
   height: 500px;
   margin: 10px 0;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
 }
 
 .paste-article-button {
@@ -130,10 +130,24 @@ h1 {
   cursor: pointer;
   height: 50px;
   border-radius: 5px;
-  cursor: pointer;
   font-weight: 600;
   margin-top: 30px;
   margin-bottom: 50px;
+}
+
+.reset-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  width: 90%;
+  border: 1px solid transparent;
+  font-size: 1.5em;
+  font-family: inherit;
+  height: 50px;
+  border-radius: 5px;
+  font-weight: 600;
+  margin: 10px auto;
 }
 
 button:hover {
@@ -170,6 +184,44 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
+}
+
+.output-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-width: 800px;
+}
+
+.article-text {
+  margin: auto 30px;
+}
+
+.fact-true {
+  color: green;
+}
+
+.fact-false {
+  position: relative;
+  color: red;
+}
+
+.fact-tip {
+  display: none;
+  position: absolute;
+  top: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #000;
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 5px;
+  min-width: 300px;
+}
+
+.fact-false:hover .fact-tip {
+  display: block;
 }
 
 /* Fancy toggle */
