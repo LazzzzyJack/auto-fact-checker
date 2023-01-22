@@ -1,25 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="style.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Auto Fact Checker</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <link rel="stylesheet" href="style.css">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Auto Fact Checker</title>
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
-</head>
+  <body>
+    <main class="container">
+      <h1>Auto Fact Checker</h1>
 
-<body>
-  <main class="container">
+      <form class="toggle">
 
-    <h1 class="kavyansh">Auto Fact Checker</h1>
-    <form>
-      <label for="prompt"></label>
-      <textarea name="prompt" maxlength="500"></textarea>
-      <button type="submit">Fact Check 🤔</button>
-    </form>
+        <input type="radio" id="choice1" name="choice" value="creative">
+        <label for="choice1">Text</label>
 
+        <input type="radio" id="choice2" name="choice" value="productive">
+        <label for="choice2">URL</label>
+
+        <div id="flap"><span class="content">Check</span></div>
+
+      </form>
+
+      <div class="toggle-component">
+        <form class="url-form" style="display: block;">
+          <label for="url-input"></label>
+          <div class="text-paste-button-container">
+            <input type="text" name="prompt" class="url-textarea" maxlength="100" placeholder="Paste URL"></textarea>
+            <button type="button" class="paste-button">📋</button>
+          </div>
+          <button type="submit" class="submit-button"><span class="submit-text">Fact Check 🤔</span></button>
+        </form>
+        <form class="text-form" style="display: none;">
+          <label for="text-input"></label>
+          <textarea type="text" name="prompt" class="text-textarea" maxlength="500" placeholder="Paste article"></textarea>
+          <button type="submit" class="submit-button"><span class="submit-text">Fact Check 🤔</span></button>
+        </form>
+      </div>
+      
     </main>
     <script type="module" src="/main.js"></script>
-</body>
+  </body>
 </html>

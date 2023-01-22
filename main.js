@@ -1,13 +1,16 @@
 import "./style.css";
 
-const form = document.querySelector("form");
+const urlForm = document.querySelector(".url-form");
+const textForm = document.querySelector(".text-form");
+let isUrl = true;
 
-form.addEventListener("submit", async (e) => {
+const getFactCheck = async (e) => {
   e.preventDefault();
   showSpinner();
-  const data = new FormData(form);
+  const data = isUrl ? new FormData(urlForm) : new FormData(textForm);
+  const endpoint = isUrl ? 'factcheckurl' : 'factchecktext';
 
-  const response = await fetch("http://localhost:8080/factcheck", {
+  const response = await fetch("http://localhost:8080/" + endpoint, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -19,24 +22,75 @@ form.addEventListener("submit", async (e) => {
 
   if (response.ok) {
     const { ans } = await response.json();
-    console.log(ans)
   } else {
     const err = await response.text();
-    alert(err);
-    console.log(err);
+    alert("Something went wrong!");
   }
 
   hideSpinner();
-});
+}
 
 function showSpinner() {
-  const button = document.querySelector("button");
+  const button = document.querySelector(".submit-button");
   button.disabled = true;
   button.innerHTML = 'Analyzing <span class="spinner">🧐</span>';
 }
 
 function hideSpinner() {
-  const button = document.querySelector("button");
+  const button = document.querySelector(".submit-button");
   button.disabled = false;
   button.innerHTML = "Fact Check 🤔";
 }
+
+const pasteButton = document.querySelector('.paste-button');
+const textarea = document.querySelector('.url-textarea');
+
+pasteButton.addEventListener('click', async () => {
+  textarea.focus();
+  const data = await navigator.clipboard.readText();
+  textarea.value = data;
+});
+
+urlForm.addEventListener("submit", getFactCheck);
+textForm.addEventListener("submit", getFactCheck);
+
+
+// For the fancy toggle
+const st = {};
+
+st.flap = document.querySelector('#flap');
+st.toggle = document.querySelector('.toggle');
+
+st.choice1 = document.querySelector('#choice1');
+st.choice2 = document.querySelector('#choice2');
+
+st.flap.addEventListener('transitionend', () => {
+    if (st.choice1.checked) {
+        st.toggle.style.transform = 'rotateY(-15deg)';
+        urlForm.style.display = "none";
+        textForm.style.display = "block";
+        isUrl = false;
+        setTimeout(() => st.toggle.style.transform = '', 50);
+    } else {
+        st.toggle.style.transform = 'rotateY(15deg)';
+        urlForm.style.display = "block";
+        textForm.style.display = "none";
+        isUrl = true;
+        setTimeout(() => st.toggle.style.transform = '', 50);
+    }
+})
+
+st.clickHandler = (e) => {
+
+    if (e.target.tagName === 'LABEL') {
+        setTimeout(() => {
+            st.flap.children[0].textContent = e.target.textContent;
+        }, 50);
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    st.flap.children[0].textContent = st.choice2.nextElementSibling.textContent;
+});
+
+document.addEventListener('click', (e) => st.clickHandler(e));

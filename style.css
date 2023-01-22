@@ -4,6 +4,10 @@
   line-height: 24px;
   font-weight: 400;
 
+    --accent: #646cff;
+    --border-width: 6px;
+    --border-radius: 50px;
+
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
   background-color: #242424;
@@ -27,16 +31,16 @@ body {
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
+  display: flex;
+  justify-content: center;
 }
 
-#app {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+.toggle-component {
+  display: flex;
+  flex-direction: column;
 }
 
-form {
+.url-form {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -46,23 +50,71 @@ form {
   margin-top: 2rem;
 }
 
-textarea {
+.text-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 512px;
+  margin-top: 2rem;
+}
+
+.url-textarea {
+  font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
+  width: 100%;
+  height: 30px;
+  margin: 10px 0;
+  font-size: 1.0rem;
+}
+
+.paste-button {
+  border-radius: 8px;
+  width: 10%;
+  border: 1px solid transparent;
+  font-size: 1em;
+  font-family: inherit;
+  background-color: transparent;
+  height: 35px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 600;
+  margin: 10px;
+}
+
+.text-paste-button-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.text-textarea {
+  font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
   width: 100%;
   height: 500px;
   margin: 10px 0;
   font-size: 1.5rem;
 }
 
-button {
+.submit-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border-radius: 8px;
+  width: 100%;
   border: 1px solid transparent;
   padding: 0.6em 1.2em;
-  font-size: 1em;
+  font-size: 1.5em;
   font-weight: 500;
   font-family: inherit;
   background-color: #1a1a1a;
   cursor: pointer;
-  transition: border-color 0.25s;
+  height: 50px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 600;
+  margin-bottom: 50px;
 }
 
 button:hover {
@@ -99,4 +151,70 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
+}
+
+/* Fancy toggle */
+.toggle {
+  position: relative;
+  border: solid var(--border-width) var(--accent);
+  border-radius: var(--border-radius);
+  transition: transform cubic-bezier(0, 0, 0.30, 2) .4s;
+  transform-style: preserve-3d;
+  perspective: 800px;
+}
+
+.toggle>input[type="radio"] {
+  display: none;
+}
+
+.toggle>#choice1:checked~#flap {
+  transform: rotateY(-180deg);
+}
+
+.toggle>#choice1:checked~#flap>.content {
+  transform: rotateY(-180deg);
+}
+
+.toggle>#choice2:checked~#flap {
+  transform: rotateY(0deg);
+}
+
+.toggle>label {
+  display: inline-block;
+  min-width: 170px;
+  padding:20px;
+  font-size: var(--font-size);
+  text-align: center;
+  color: var(--accent);
+  cursor: pointer;
+}
+
+.toggle>label,
+.toggle>#flap {
+  font-weight: bold;
+  text-transform: capitalize;
+}
+
+.toggle>#flap {
+  position: absolute;
+  top: calc( 0px - var(--border-width));
+  left: 50%;
+  height: calc(100% + var(--border-width) * 2);
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: var(--font-size);
+  background-color: var(--accent);
+  border-top-right-radius: var(--border-radius);
+  border-bottom-right-radius: var(--border-radius);
+  transform-style: preserve-3d;
+  transform-origin: left;
+  transition: transform cubic-bezier(0.4, 0, 0.2, 1) .5s;
+}
+
+.toggle>#flap>.content {
+  color: #333;
+  transition: transform 0s linear .25s;
+  transform-style: preserve-3d;
 }
