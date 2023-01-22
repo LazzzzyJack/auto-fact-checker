@@ -158,7 +158,6 @@ button:hover {
   display: none;
 }
 
-
 .spinner {
   animation: spin 1s linear infinite;
   display: inline-block;
@@ -169,8 +168,12 @@ button:focus-visible {
 }
 
 @keyframes spin {
-  from {transform:rotate(0deg);}
-  to {transform:rotate(360deg);}
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 @media (prefers-color-scheme: light) {
