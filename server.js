@@ -1,6 +1,8 @@
 import * as dotenv from "dotenv";
 import { textAnalysisApi } from "./textAnalysisApi.js";
 import { tweeterScrapingApi } from "./tweeterScrapingApi.js";
+import express from "express";
+import cors from "cors";
 
 dotenv.config();
 
@@ -9,9 +11,6 @@ import { Configuration, OpenAIApi } from "openai";
 const configuration = new Configuration({
   apiKey: process.env.OPENAI,
 });
-
-import express from "express";
-import cors from "cors";
 
 const port = process.env.PORT;
 const app = express();
@@ -31,12 +30,13 @@ const data = {
 
 app.post("/factchecktext", async (req, res) => {
   const prompt = req.body.prompt;
-  textAnalysisApi(data, prompt);
+  let result = await textAnalysisApi(data, prompt, res);
+  console.log(`Fianl: ${result}`);
 });
 
 app.post("/factcheckurl", async (req, res) => {
   const prompt = req.body.prompt;
-  tweeterScrapingApi(data, prompt);
+  tweeterScrapingApi(data, prompt, res);
 });
 
 app.listen(port, () => {
