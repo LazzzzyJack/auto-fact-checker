@@ -3,6 +3,7 @@ import { textAnalysisApi } from "./textAnalysisApi.js";
 import { tweeterScrapingApi } from "./tweeterScrapingApi.js";
 import express from "express";
 import cors from "cors";
+import { textAnalysisAi } from "./textAnalysisAi.js";
 
 dotenv.config();
 
@@ -19,46 +20,84 @@ app.use(express.json());
 
 app.post("/factchecktext", async (req, res) => {
   const data = {
-    prompt:
-      // "The Union possessed many features unique among contemporary states. Its political system was characterized by strict checks upon monarchical power. These checks were enacted by a legislature (sejm) controlled by the nobility (szlachta). This idiosyncratic system was a precursor to modern concepts of democracy. Although the two component states of the Commonwealth were formally equal, Poland was the dominant partner in the union. Identify the facts and seperate them with newlines.",
-      "The Poké Ball is a type of Poké Ball introduced in Generation I. It is the most basic form of Poké Ball, an item used to catch a wild Pokémon. The eponymous Poké Ball is the most ubiquitous kind of Poké Ball across the entire Pokémon franchise. It is frequently used to represent the Pokémon series as a whole, such as in the Pokémon series' icon in the Super Smash Bros. series. Identify the facts and seperate them with newlines.",
-    temperature: 0.5,
+    prompt: req.body.prompt,
     max_tokens: 64,
     top_p: 1.0,
     frequency_penalty: 0.0,
     presence_penalty: 0.0,
   };
-
   const prompt = req.body.prompt;
-  let result = await textAnalysisApi(data, prompt, res);
-  console.log(`Fianl: ${result}`);
+  let formattedResponse = await textAnalysisApi(data, prompt, res);
+  console.log(`Fianl: ${formattedResponse}`);
+  res.status(200).json({ textFormat: formattedResponse });
 });
 
 app.post("/factcheckurl", async (req, res) => {
-  const data1 = {
-    prompt: "URL",
+  const data = {
+    prompt: req.body.prompt,
     max_tokens: 64,
     top_p: 1.0,
     frequency_penalty: 0.0,
     presence_penalty: 0.0,
   };
   const url = req.body.prompt;
-  const prompt = await tweeterScrapingApi(data1, url, res);
+  const prompt = await tweeterScrapingApi(data, url, res);
   console.log(
     "===" +
       prompt +
       " Identify the facts and seperate them with newlines." +
       "==="
   );
-  const data2 = {
+  const data1 = {
     prompt: prompt + " Identify the facts and seperate them with newlines.",
     max_tokens: 64,
     top_p: 1.0,
     frequency_penalty: 0.0,
     presence_penalty: 0.0,
   };
-  let result = await textAnalysisApi(data2, prompt, res);
-  console.log(`Fianl: ${result}`);
+  let response = await textAnalysisAi(data1, data1.prompt);
+  var responseText = response.choices[0].text;
+  let factList = responseText.split("\n");
+  console.log(factList);
+  const filteredFacts = factList.filter((fact) => fact !== "" && fact !== " ");
+  console.log("FACT LIST");
+  console.log(filteredFacts);
+
+  // get more info of each fact
+  const infos = [];
+  for (let i = 0; i < filteredFacts.length; i++) {
+    const data2 = {
+      prompt: filteredFacts[i],
+      temperature: 0.5,
+      max_tokens: 64,
+      top_p: 1.0,
+      frequency_penalty: 0.0,
+      presence_penalty: 0.0,
+    };
+    let response3 = await textAnalysisAi(data2, filteredFacts[i]);
+    var responseText3 = response3.choices[0].text;
+    let info = responseText3.replace(/(\r\n|\n|\r)/gm, ""); // remove \n
+    infos.push(info);
+  }
+
+  console.log("More Info2");
+  console.log(infos);
+
+  var formattedResponse = "";
+  filteredFacts.forEach((element, i) => {
+    formattedResponse =
+      formattedResponse +
+      `<span class="fact-tweeter">` +
+      element +
+      '<span class="fact-tip}">' +
+      infos[i] +
+      "</span>" +
+      "</span>";
+  });
+
+  console.log("FORMATTED RESPONSE");
+  console.log(formattedResponse);
+  res.status(200).json({ textFormat: formattedResponse });
 });
 
 app.listen(port, () => {
