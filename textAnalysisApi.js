@@ -61,7 +61,7 @@ export const textAnalysisApi = async (data, prompt, res) => {
         element,
         `<span class="fact-${truths[i]}">` +
           element +
-          '<span class="fact-tip}">' +
+          '<span class="fact-tip">' +
           infos[i] +
           "</span>" +
           "</span>"

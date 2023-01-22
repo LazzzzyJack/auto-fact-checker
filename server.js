@@ -91,7 +91,7 @@ app.post("/factcheckurl", async (req, res) => {
       formattedResponse +
       `<span class="fact-tweeter">` +
       element +
-      '<span class="fact-tip}">' +
+      '<span class="fact-tip">' +
       infos[i] +
       "</span>" +
       "</span>";
