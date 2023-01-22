@@ -2,6 +2,7 @@
 
 ## Setup
 `npm install`
+In `.env`, put in your OpenAI secret key
 
 ## Run server
 `npm run serve`
