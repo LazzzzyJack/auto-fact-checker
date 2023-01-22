@@ -191,6 +191,7 @@ button:focus-visible {
 
 .output-container {
   display: flex;
+  background-color: white;
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -224,6 +225,10 @@ button:focus-visible {
 }
 
 .fact-false:hover .fact-tip {
+  display: block;
+}
+
+.fact-true:hover .fact-tip {
   display: block;
 }
 
