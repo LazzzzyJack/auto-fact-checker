@@ -42,13 +42,22 @@ function hideSpinner() {
   button.innerHTML = "Fact Check 🤔";
 }
 
-const pasteButton = document.querySelector('.paste-button');
-const textarea = document.querySelector('.url-textarea');
+const pasteUrlButton = document.querySelector('.paste-button');
+const urlTextarea = document.querySelector('.url-textarea');
 
-pasteButton.addEventListener('click', async () => {
-  textarea.focus();
+pasteUrlButton.addEventListener('click', async () => {
+  urlTextarea.focus();
   const data = await navigator.clipboard.readText();
-  textarea.value = data;
+  urlTextarea.value = data;
+});
+
+const pasteTextButton = document.querySelector('.paste-article-button');
+const textTextarea = document.querySelector('.text-textarea');
+
+pasteTextButton.addEventListener('click', async () => {
+  textTextarea.focus();
+  const data = await navigator.clipboard.readText();
+  textTextarea.value = data;
 });
 
 urlForm.addEventListener("submit", getFactCheck);
