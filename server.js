@@ -20,7 +20,7 @@ app.use(express.json());
 app.listen(port, () => { console.log(`Server avalible on port ${port}`) });
 
 const data = {
-    prompt: "The Union possessed many features unique among contemporary states. Its political system was characterized by strict checks upon monarchical power. These checks were enacted by a legislature (sejm) controlled by the nobility (szlachta). This idiosyncratic system was a precursor to modern concepts of democracy, as of 1791 constitutional monarchy, and federation. Although the two component states of the Commonwealth were formally equal, Poland was the dominant partner in the union. Identify facts and opinions",
+    prompt: "The Polish–Lithuanian Commonwealth, formally known as the Kingdom of Poland and the Grand Duchy of Lithuania, was a bi-confederal state, sometimes called a federation, of Poland and Lithuania ruled by a common monarch in real union, who was both King of Poland and Grand Duke of Lithuania. It was one of the largest and most populous countries of 16th to 17th-century Europe. At its largest territorial extent, in the early 17th century, the Commonwealth covered almost 1,000,000 km2 (400,000 sq mi) and as of 1618 sustained a multi-ethnic population of almost 12 million. Polish and Latin were the two co-official languages. The Commonwealth was established by the Union of Lublin in July 1569, but the Crown of the Kingdom of Poland and the Grand Duchy of Lithuania had been in a de facto personal union since 1386 with the marriage of the Polish queen Jadwiga (Hedwig) and Lithuania's Grand Duke Jogaila, who was crowned King jure uxoris Władysław II Jagiełło of Poland. Identify facts and opinions.",
     temperature: 0.5,
     max_tokens: 64,
     top_p: 1.0,
@@ -28,21 +28,24 @@ const data = {
     presence_penalty: 0.0,
   };
 
-try {
-    let res = await fetch(
-      "https://api.openai.com/v1/engines/text-davinci-003/completions",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${configuration.apiKey}`,
-        },
-        body: JSON.stringify(data),
+  const text = async () => {
+    try {
+        var res = await fetch(
+          "https://api.openai.com/v1/engines/text-davinci-003/completions",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${configuration.apiKey}`,
+            },
+            body: JSON.stringify(data),
+          }
+        );
+        var response = await res.json()
+        console.log(response)
+        return response
+      } catch (error) {
+        console.log("openAI:", error);
       }
-    );
-    res = await res.json();
-    console.log(res);
   }
-  catch (error) {
-    console.log("openAI:", error);
-  }
+  text().then(response => console.log(response.choices[0].text))
