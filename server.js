@@ -17,10 +17,6 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.listen(port, () => {
-  console.log(`Server avalible on port ${port}`);
-});
-
 const data = {
   prompt:
     "The Polish–Lithuanian Commonwealth, formally known as the Kingdom of Poland and the Grand Duchy of Lithuania, was a bi-confederal state, sometimes called a federation, of Poland and Lithuania ruled by a common monarch in real union, who was both King of Poland and Grand Duke of Lithuania. It was one of the largest and most populous countries of 16th to 17th-century Europe. At its largest territorial extent, in the early 17th century, the Commonwealth covered almost 1,000,000 km2 (400,000 sq mi) and as of 1618 sustained a multi-ethnic population of almost 12 million. Polish and Latin were the two co-official languages. The Commonwealth was established by the Union of Lublin in July 1569, but the Crown of the Kingdom of Poland and the Grand Duchy of Lithuania had been in a de facto personal union since 1386 with the marriage of the Polish queen Jadwiga (Hedwig) and Lithuania's Grand Duke Jogaila, who was crowned King jure uxoris Władysław II Jagiełło of Poland. Identify facts and opinions.",
@@ -55,8 +51,16 @@ const textAnalysis = async () => {
   }
 };
 
-app.post("/factcheck", async (res, req) => {
-  let response = await text();
-  console.log(response);
-  return response;
+app.post('/factcheck', async (req, res) => {
+    try {
+        const prompt = req.body.prompt
+        const ans = "some respond"
+
+        res.send({ ans });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Something went wrong');
+    }
 });
+
+app.listen(port, () => { console.log(`Avalible on http://localhost:${port}`) });
