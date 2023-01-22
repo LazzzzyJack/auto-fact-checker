@@ -7,24 +7,30 @@ form.addEventListener('submit', async (e) => {
   showSpinner();
   const data = new FormData(form);
 
-  const response = await fetch('http://localhost:8080/factcheck', {
-    method: 'POST',
-    headers: {  
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      prompt: data.get('prompt')
-    }),
-  });
+  try {
+      await timeout(10000);
+      const response = await fetch('http://localhost:8080/factcheck', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        prompt: data.get('prompt')
+      }),
+    });
 
-  if (response.ok) {
-    const { someAnswer } = await response.json();
-
-    const result = document.querySelector('#result');
-    result.innerHTML = `<img src="${image}" width="512" />`;
-  } else {
-    const err = await response.text();
-    alert(err);
+    if (response.ok) {
+      const { someAnswer } = await response.json();
+  
+      const result = document.querySelector('#result');
+      result.innerHTML = `<img src="${image}" width="512" />`;
+    } else {
+      const err = await response.text();
+      alert(err);
+      console.log(err);
+    }
+  } catch {
+    // alert("Request timeout after 10 seconds");
     console.log(err);
   }
 
