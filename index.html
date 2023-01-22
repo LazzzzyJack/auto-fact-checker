@@ -11,36 +11,41 @@
   <body>
     <main class="container">
       <h1>Auto Fact Checker</h1>
+      <div class="input-container">
+        <form class="toggle">
 
-      <form class="toggle">
+          <input type="radio" id="choice1" name="choice" value="creative">
+          <label for="choice1">Text</label>
 
-        <input type="radio" id="choice1" name="choice" value="creative">
-        <label for="choice1">Text</label>
+          <input type="radio" id="choice2" name="choice" value="productive">
+          <label for="choice2">URL</label>
 
-        <input type="radio" id="choice2" name="choice" value="productive">
-        <label for="choice2">URL</label>
+          <div id="flap"><span class="content">Check</span></div>
 
-        <div id="flap"><span class="content">Check</span></div>
-
-      </form>
-
-      <div class="toggle-component">
-        <form class="url-form" style="display: block;">
-          <label for="url-input"></label>
-          <div class="text-paste-button-container">
-            <input type="text" name="prompt" class="url-textarea" maxlength="100" placeholder="Paste URL"></textarea>
-            <button type="button" class="paste-button">📋</button>
-          </div>
-          <button type="submit" class="submit-button"><span class="submit-text">Fact Check 🤔</span></button>
         </form>
-        <form class="text-form" style="display: none;">
-          <label for="text-input"></label>
-          <textarea type="text" name="prompt" class="text-textarea" maxlength="500" placeholder="Paste article"></textarea>
-          <button type="button" class="paste-article-button"><span class="submit-text">Paste Article 📋</span></button>
-          <button type="submit" class="submit-button"><span class="submit-text">Fact Check 🤔</span></button>
-        </form>
+
+        <div class="toggle-component">
+          <form class="url-form" style="display: block;">
+            <label for="url-input"></label>
+            <div class="text-paste-button-container">
+              <input type="text" name="prompt" class="url-textarea" maxlength="100" placeholder="Paste URL"></textarea>
+              <button type="button" class="paste-button">📋</button>
+            </div>
+            <button type="submit" class="submit-button"><span class="submit-text">Fact Check 🤔</span></button>
+          </form>
+          <form class="text-form" style="display: none;">
+            <label for="text-input"></label>
+            <textarea type="text" name="prompt" class="text-textarea" maxlength="500" placeholder="Paste article"></textarea>
+            <button type="button" class="paste-article-button"><span class="submit-text">Paste Article 📋</span></button>
+            <button type="submit" class="submit-button"><span class="submit-text">Fact Check 🤔</span></button>
+          </form>
+        </div>
       </div>
-      
+
+      <div class="output-container" style="display: none;">
+        <button class="reset-button">🥱 Analyze Something Else</button>
+        <div class="article-text"></div>
+      </div>
     </main>
     <script type="module" src="/main.js"></script>
   </body>
