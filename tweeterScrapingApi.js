@@ -8,12 +8,9 @@ export const tweeterScrapingApi = async (data, prompt, res) => {
     const browser = await puppeteer.launch({ headless: true });
     const page = await browser.newPage();
 
-    await page.goto(
-      "https://twitter.com/BobLoukas/status/1616550342744743937",
-      {
-        waitUntil: "networkidle0",
-      }
-    );
+    await page.goto("https://twitter.com/0xQuit/status/1616994381957038080", {
+      waitUntil: "networkidle0",
+    });
 
     const result = await page.$eval(
       "article div[lang]",

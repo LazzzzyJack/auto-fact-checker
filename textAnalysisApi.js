@@ -1,4 +1,3 @@
-import { async } from "rxjs";
 import { textAnalysisAi } from "./textAnalysisAi.js";
 
 export const textAnalysisApi = async (data, prompt, res) => {
@@ -11,11 +10,11 @@ export const textAnalysisApi = async (data, prompt, res) => {
 
     const filteredFacts = factList.filter((fact) => fact !== "");
 
-    // check if the Fact is true or false
-    // {context, isTrue}
-    const truths = [];
+    console.log("FACT LIST");
+    console.log(filteredFacts);
 
-    console.log("++++");
+    // check if the Fact is true or false
+    const truths = [];
     for (let i = 0; i < filteredFacts.length; i++) {
       const data = {
         prompt: filteredFacts[i] + " True or False?",
@@ -26,24 +25,45 @@ export const textAnalysisApi = async (data, prompt, res) => {
         presence_penalty: 0.0,
       };
       let response2 = await textAnalysisAi(data, filteredFacts[i]);
-      console.log(response2);
       var responseText2 = response2.choices[0].text;
       let factList2 = responseText2.split("\n");
-      const truth = isTrue(factList2);
+      const truth = isTrue(factList2); // only care about the first word (true or false), discard the rest
       truths.push(truth);
     }
 
     console.log("Context to truth Map");
     console.log(truths);
 
-    console.log("FACT LIST");
-    console.log(filteredFacts);
+    // get more info of each fact
+    const infos = [];
+    for (let i = 0; i < filteredFacts.length; i++) {
+      const data = {
+        prompt: filteredFacts[i],
+        temperature: 0.5,
+        max_tokens: 64,
+        top_p: 1.0,
+        frequency_penalty: 0.0,
+        presence_penalty: 0.0,
+      };
+      let response3 = await textAnalysisAi(data, filteredFacts[i]);
+      var responseText3 = response3.choices[0].text;
+      let info = responseText3.replace(/(\r\n|\n|\r)/gm, ""); // remove \n
+      infos.push(info);
+    }
+
+    console.log("More Info");
+    console.log(infos);
 
     var formattedResponse = data.prompt;
     filteredFacts.forEach((element, i) => {
       formattedResponse = formattedResponse.replace(
         element,
-        `<span class="fact-${truths[i]}">` + element + "</span>"
+        `<span class="fact-${truths[i]}">` +
+          element +
+          '<span class="fact-tip}">' +
+          infos[i] +
+          "</span>" +
+          "</span>"
       );
     });
     formattedResponse = formattedResponse.replace(
