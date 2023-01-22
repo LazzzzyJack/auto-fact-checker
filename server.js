@@ -19,14 +19,15 @@ app.use(cors());
 app.use(express.json());
 
 app.post("/factchecktext", async (req, res) => {
+  const prompt =
+    req.body.prompt + " Identify the facts and seperate them with newlines.";
   const data = {
-    prompt: req.body.prompt,
+    prompt: prompt,
     max_tokens: 64,
     top_p: 1.0,
     frequency_penalty: 0.0,
     presence_penalty: 0.0,
   };
-  const prompt = req.body.prompt;
   let formattedResponse = await textAnalysisApi(data, prompt, res);
   console.log(`Fianl: ${formattedResponse}`);
   res.status(200).json({ textFormat: formattedResponse });
@@ -41,15 +42,16 @@ app.post("/factcheckurl", async (req, res) => {
     presence_penalty: 0.0,
   };
   const url = req.body.prompt;
-  const prompt = await tweeterScrapingApi(data, url, res);
+  var prompt = await tweeterScrapingApi(data, url, res);
   console.log(
     "===" +
       prompt +
       " Identify the facts and seperate them with newlines." +
       "==="
   );
+  prompt = prompt + " Identify the facts and seperate them with newlines.";
   const data1 = {
-    prompt: prompt + " Identify the facts and seperate them with newlines.",
+    prompt: prompt,
     max_tokens: 64,
     top_p: 1.0,
     frequency_penalty: 0.0,

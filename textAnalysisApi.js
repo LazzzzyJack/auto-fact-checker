@@ -56,6 +56,7 @@ export const textAnalysisApi = async (data, prompt, res) => {
 
     var formattedResponse = data.prompt;
     filteredFacts.forEach((element, i) => {
+      console.log(formattedResponse.includes(element));
       formattedResponse = formattedResponse.replace(
         element,
         `<span class="fact-${truths[i]}">` +
