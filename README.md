@@ -4,7 +4,7 @@
 `npm install`
 
 ## Run server
-`npm serve`
+`node server`
 
 ## Run client
 `npm run dev`
