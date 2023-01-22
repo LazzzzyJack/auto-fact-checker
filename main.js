@@ -12,6 +12,18 @@ const resetButton = document.querySelector(".reset-button");
 const articleContainer = document.querySelector(".article-text");
 let isUrl = true;
 
+const body = document.querySelector('body');
+
+const backgrounds = [
+"./backgrounds/absolutvision-WYd_PkCa1BY-unsplash.jpg", 
+"backgrounds/christian-lue-7dEyTJ7-8os-unsplash.jpg",
+"backgrounds/joshua-sukoff-5DDYHjk_KMU-unsplash.jpg",
+];
+const randomIndex = Math.floor(Math.random() * backgrounds.length);
+const randomBackground = backgrounds[randomIndex];
+body.style.backgroundImage = `url('${randomBackground}')`;
+body.style.backgroundSize = "cover";
+
 const getFactCheck = async (e) => {
   e.preventDefault();
   showSpinner();
