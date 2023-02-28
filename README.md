@@ -1,4 +1,5 @@
 # Verif.AI
+Archive for nwHacks 2023 project
 
 ## Setup
 `npm install`
